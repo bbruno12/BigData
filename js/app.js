@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const csvWriter = require('csv-writer').createObjectCsvWriter;
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -65,12 +66,17 @@ app.get('/export-csv', async (req, res) => {
     }
 });
 
-// Servir archivos estáticos desde la carpeta 'public'
-app.use(express.static('public'));
+// Servir archivos estáticos desde el directorio raíz
+app.use(express.static(path.join(__dirname, '..')));
 
 // Ruta de confirmación después del registro
 app.get('/confirmation', (req, res) => {
     res.send('<h1>Registro exitoso</h1><br><a href="/">Regresar a la página principal</a>');
+});
+
+// Ruta para la página principal
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 // Iniciar el servidor
