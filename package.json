@@ -1,7 +1,7 @@
 {
   "name": "big_data",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "js/app.js",
   "scripts": {
     "start":"node js/app.js",
     "dev":"nodemon js/app.js",
