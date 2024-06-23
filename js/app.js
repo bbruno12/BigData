@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     age: Number,
     interestArea: String,
     knowledgeLevel: String,
-    availabilityDays: { type: [String], required: true },
+    availabilityDays: String,
     availabilityTurn: String,
     availabilityMode: String
 });
