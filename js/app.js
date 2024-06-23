@@ -25,16 +25,19 @@ app.use(express.json());
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
+    age: Number,
     interestArea: String,
     knowledgeLevel: String,
-    availability: String
+    availabilityDays: { type: [String], required: true },
+    availabilityTurn: String,
+    availabilityMode: String
 });
 const User = mongoose.model('User', userSchema);
 
 // Ruta para registrar usuarios
 app.post('/register', async (req, res) => {
-    const { name, email, interestArea, knowledgeLevel, availability } = req.body;
-    const user = new User({ name, email, interestArea, knowledgeLevel, availability });
+    const { name, email, age, interestArea, knowledgeLevel, availabilityDays, availabilityTurn, availabilityMode } = req.body;
+    const user = new User({ name, email, age, interestArea, knowledgeLevel, availabilityDays, availabilityTurn, availabilityMode });
     try {
         await user.save();
         res.status(200).send('User registered successfully');
@@ -43,7 +46,6 @@ app.post('/register', async (req, res) => {
         res.status(500).send('Error registering user');
     }
 });
-
 // Ruta para exportar datos a CSV
 app.get('/export-csv', async (req, res) => {
     try {
@@ -52,6 +54,7 @@ app.get('/export-csv', async (req, res) => {
             path: 'users.csv',
             header: [
                 { id: 'name', title: 'Name' },
+                { id: 'age', title: 'Age' },
                 { id: 'email', title: 'Email' },
                 { id: 'interestArea', title: 'Interest Area' },
                 { id: 'knowledgeLevel', title: 'Knowledge Level' },

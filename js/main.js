@@ -54,8 +54,16 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const formData = new FormData(this);
     const data = {};
     formData.forEach((value, key) => {
-        data[key] = value;
-    });
+       // Si el campo ya existe en el objeto data (como availabilityDays), convierte su valor a un array
+       if (data[key]) {
+        if (!Array.isArray(data[key])) {
+            data[key] = [data[key]]; // Convierte a array si no lo es
+        }
+        data[key].push(value); // Agrega el nuevo valor al array existente
+    } else {
+        data[key] = value; // Asigna el valor normalmente si no es un array aún
+    }
+});
 
     // Envía los datos a través de fetch
     fetch('/register', {
@@ -68,9 +76,11 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         if (response.ok) {
             // Muestra la alerta SweetAlert2
             Swal.fire({
-                title: "Good job!",
-                text: "You clicked the button!",
+                title: "Registro exitoso",
+                text: "Te enviaremos un correo con toda la información!",
                 icon: "success"
+            }).then(() => {
+                document.getElementById('registrationForm').reset(); // Resetea el formulario
             });
         } else {
             // Maneja los errores de registro
