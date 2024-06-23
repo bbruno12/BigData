@@ -17,6 +17,8 @@
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+    <!-- Incluir SweetAlert2 desde un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -359,7 +361,8 @@
                 <div class="card border-0">
                     <div class="container">
                         <h1>Únete a nuestra plataforma de intercambio de conocimientos</h1>
-                        <form action="/register" method="post">
+                        <form id="registrationForm" action="/register" method="post">
+                            <!-- contenido del formulario -->
                             <div class="form-group">
                                 <label for="name">Nombre:</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -497,7 +500,7 @@
                                 <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marketing</a>
                                 <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Research</a>
                                 <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
-                                <!-- <a href="/exportar-csv"><button>Exportar a CSV</button></a> -->
+                                <a href="/exportar-csv"><button>Exportar a CSV</button></a> -->
                             </div>
                         </div>
                     </div>

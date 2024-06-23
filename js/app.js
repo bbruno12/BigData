@@ -2,7 +2,6 @@ require('dotenv').config(); // Cargar variables de entorno desde .env
 
 const express = require('express');
 const mongoose = require('mongoose');
-const csvWriter = require('csv-writer').createObjectCsvWriter;
 const path = require('path');
 
 const app = express();
@@ -18,8 +17,9 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error("Error connecting to MongoDB:", err);
 });
 
-// Middleware para analizar datos de formularios
+// Middleware para analizar datos de formularios y JSON
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Modelo de Usuario
 const userSchema = new mongoose.Schema({
@@ -37,8 +37,7 @@ app.post('/register', async (req, res) => {
     const user = new User({ name, email, interestArea, knowledgeLevel, availability });
     try {
         await user.save();
-        // Redireccionar a una página de confirmación después del registro
-        res.redirect('/confirmation');
+        res.status(200).send('User registered successfully');
     } catch (err) {
         console.error('Error saving user:', err);
         res.status(500).send('Error registering user');
