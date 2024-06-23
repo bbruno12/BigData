@@ -1,13 +1,15 @@
+require('dotenv').config(); // Cargar variables de entorno desde .env
+
 const express = require('express');
 const mongoose = require('mongoose');
 const csvWriter = require('csv-writer').createObjectCsvWriter;
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Puerto definido en variables de entorno o por defecto 3000
 
-// Conexión a MongoDB
-mongoose.connect('mongodb+srv://bbustamante1:admin1234@conexionbd.9yoivbt.mongodb.net/ConexionBD', {
+// Conexión a MongoDB usando la variable de entorno MONGODB_URI
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
